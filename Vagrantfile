@@ -112,7 +112,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "www" do |www|
     www.vm.box = "generic/alpine319"
     www.vm.hostname = "www-#{iniciales}"
-    www.vm.network "private_network", ip: "172.1.#{N}.3", netmask: "255.255.255.0", virtualbox__intnet: "red_dmz" 
+    www.vm.network "private_network", ip: "172.1.#{N}.3", netmask: "255.255.255.0", virtualbox__intnet: "red_lan" 
     www.vm.provision "shell", path: "www/provision.sh"
     # eliminar default gw en eth0 – red NAT creada por defecto
     www.vm.provision "shell",
