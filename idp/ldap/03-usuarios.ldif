@@ -1,0 +1,29 @@
+# Administrador de sistemas (tú)
+dn: uid=jazmin.chuquin,ou=usuarios,dc=jct,dc=internal
+objectClass: inetOrgPerson
+objectClass: posixAccount
+uid: jazmin.chuquin
+cn: Jazmin Chuquin
+sn: Chuquin
+givenName: Jazmin
+mail: jazmin.chuquin@jct.internal
+uidNumber: 10001
+gidNumber: 10000
+homeDirectory: /home/jazmin.chuquin
+loginShell: /bin/bash
+userPassword: {SSHA}AfRntg2WF/beGilehUkBUq9jiccDomYf
+
+# Empleado
+dn: uid=lamine.yamal,ou=usuarios,dc=jct,dc=internal
+objectClass: inetOrgPerson
+objectClass: posixAccount
+uid: lamine.yamal
+cn: Lamine Yamal
+sn: Yamal
+givenName: Lamine
+mail: lamine.yamal@jct.internal
+uidNumber: 10002
+gidNumber: 10000
+homeDirectory: /home/lamine.yamal
+loginShell: /bin/bash
+userPassword: {SSHA}jA5RaDPRe75YNer/RoMvjXc75klq63iR
