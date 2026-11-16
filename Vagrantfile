@@ -79,7 +79,7 @@ Vagrant.configure("2") do |config|
     # eliminar default gw en eth0 – red NAT creada por defecto
     empleado.vm.provision "shell",
         run: "always",
-        inline:  "ip route replace default via 172.2.#{N}.1"   
+        inline: "ip route replace default via 172.2.#{N}.1; systemctl try-restart sssd || true"   
     empleado.vm.provider "virtualbox" do |vb|
         vb.name = "empleado-lan"
         vb.gui = false
@@ -120,7 +120,7 @@ Vagrant.configure("2") do |config|
     # eliminar default gw en eth0 – red NAT creada por defecto
     www.vm.provision "shell",
         run: "always",
-        inline:  "ip route del default && ip route add default via 172.1.#{N}.1"     
+        inline: "ip route replace default via 172.1.#{N}.1; systemctl try-restart sssd || true"     
     www.vm.provider "virtualbox" do |vb|
         vb.name = "www-dmz"
         vb.gui = false
