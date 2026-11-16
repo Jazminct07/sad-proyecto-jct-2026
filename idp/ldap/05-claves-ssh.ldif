@@ -1,0 +1,8 @@
+# Clave pública SSH del administrador (la misma de adminpc/claves-ssh/clave_admin.pub)
+dn: uid=jazmin.chuquin,ou=usuarios,dc=jct,dc=internal
+changetype: modify
+add: objectClass
+objectClass: ldapPublicKey
+-
+add: sshPublicKey
+sshPublicKey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOvsvicUd8GI8q7/fqaA0i7oQ5V4Kk44i6ttDSuYQFCZ admin_jazmin@adminpc
