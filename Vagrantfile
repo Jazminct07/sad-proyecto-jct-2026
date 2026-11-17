@@ -1,5 +1,14 @@
 N = "2" # Tu número de clase
-iniciales = "JCT"
+iniciales = "jct"
+
+# Secretos (contraseñas): se leen del fichero .env, que NO se sube a Git
+secretos = {}
+if File.exist?(".env")
+  File.readlines(".env", encoding: "bom|utf-8").each do |linea|
+    clave, valor = linea.strip.split("=", 2)
+    secretos[clave.strip] = valor.strip if valor && !clave.strip.start_with?("#")
+  end
+end
 
 Vagrant.configure("2") do |config|
 
@@ -33,11 +42,15 @@ Vagrant.configure("2") do |config|
     idp.vm.box = "bento/ubuntu-24.04"
     idp.vm.hostname = "idp-#{iniciales}"
     idp.vm.network "private_network", ip: "172.3.#{N}.2", netmask: "255.255.255.0", virtualbox__intnet: "red_gestión"
-    idp.vm.provision "shell", path: "idp/provision.sh"
+    idp.vm.provision "shell", path: "idp/provision.sh", env: {
+      "DOMINIO" => "#{iniciales}.internal",
+      "ORGANIZACION" => "Empresa #{iniciales}",
+      "LDAP_ADMIN_PASS" => secretos["LDAP_ADMIN_PASS"]
+    }
     # eliminar default gw en eth0 – red NAT creada por defecto
     idp.vm.provision "shell",
         run: "always",
-        inline:  "ip route del default && ip route add default via 172.3.#{N}.1"       
+        inline: "ip route replace default via 172.3.#{N}.1"       
     idp.vm.provider "virtualbox" do |vb|
         vb.name = "idp-intranet"
         vb.gui = false
@@ -59,7 +72,7 @@ Vagrant.configure("2") do |config|
     # eliminar default gw en eth0 – red NAT creada por defecto
     adminpc.vm.provision "shell",
         run: "always",
-        inline:  "ip route del default && ip route add default via 172.2.#{N}.1"   
+        inline:  "ip route replace default via 172.2.#{N}.1"   
     adminpc.vm.provider "virtualbox" do |vb|
         vb.name = "adminpc-lan"
         vb.gui = false
@@ -76,6 +89,7 @@ Vagrant.configure("2") do |config|
     empleado.vm.hostname = "empleado-jct"
     empleado.vm.network "private_network", ip: "172.2.#{N}.100", netmask: "255.255.255.0", virtualbox__intnet: "red_lan"
     empleado.vm.provision "shell", path: "empleado/provision.sh"
+    empleado.vm.provision "shell", path: "comun/cliente-ldap.sh", args: ["empleado"]
     # eliminar default gw en eth0 – red NAT creada por defecto
     empleado.vm.provision "shell",
         run: "always",
@@ -117,6 +131,7 @@ Vagrant.configure("2") do |config|
     www.vm.network "private_network", ip: "172.1.#{N}.3", netmask: "255.255.255.0", virtualbox__intnet: "red_dmz" 
     www.vm.provision "file", source: "adminpc/claves-ssh/clave_admin.pub", destination: "/tmp/id_ed25519.pub"
     www.vm.provision "shell", path: "www/provision.sh"
+    www.vm.provision "shell", path: "comun/cliente-ldap.sh", args: ["www"]
     # eliminar default gw en eth0 – red NAT creada por defecto
     www.vm.provision "shell",
         run: "always",

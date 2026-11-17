@@ -1,4 +1,4 @@
-# Administrador de sistemas (tú)
+# Administrador de sistemas
 dn: uid=jazmin.chuquin,ou=usuarios,dc=jct,dc=internal
 objectClass: inetOrgPerson
 objectClass: posixAccount

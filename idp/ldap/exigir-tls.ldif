@@ -1,4 +1,4 @@
-# Rechazar cualquier operación sin cifrar sobre nuestro directorio
+# Rechazar cualquier operaciÃ³n sin cifrar sobre nuestro directorio
 dn: olcDatabase={1}mdb,cn=config
 changetype: modify
 replace: olcSecurity

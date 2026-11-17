@@ -1,4 +1,4 @@
-# Política de contraseñas de la empresa
+# PolÃ­tica de contraseÃ±as de la empresa
 dn: ou=politicas,dc=jct,dc=internal
 objectClass: organizationalUnit
 ou: politicas

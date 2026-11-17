@@ -1,4 +1,4 @@
-# Clave pública SSH del administrador (la misma de adminpc/claves-ssh/clave_admin.pub)
+# Clave pÃºblica SSH del administrador (la misma de adminpc/claves-ssh/clave_admin.pub)
 dn: uid=jazmin.chuquin,ou=usuarios,dc=jct,dc=internal
 changetype: modify
 add: objectClass

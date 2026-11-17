@@ -1,4 +1,4 @@
-﻿# Esquema openssh-lpk: añade la clase ldapPublicKey y el atributo sshPublicKey
+# Esquema openssh-lpk: añade la clase ldapPublicKey y el atributo sshPublicKey
 dn: cn=openssh-lpk,cn=schema,cn=config
 objectClass: olcSchemaConfig
 cn: openssh-lpk
